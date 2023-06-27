@@ -1,43 +1,34 @@
-var formulario = document.querySelector("#form")
+var formulario = document.getElementById('idDeFormulario')
 
-formulario.onsubmit = function(e) {
+formulario.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var nombre = document.getElementById('name').value;
+  const edad = document.getElementById('age').value;
+  const nacionalidad = document.getElementById('nationality').value;
 
-  e.prevent();
-  
-  var n = formulario.elements[0]
-  var e = formulario.elements[1]
-  var na = formulario.elements[2]
-
-  var nombre = n.value
-  var edad = e.value
-
-  var i = na.selectedIndex
-  var nacionalidad = na.options[i].value
-  console.log(nombre, edad)
-  console.log(nacionalidad)
-
-  if (nombre.length === 0) {
-    n.classList.add("error")
+  if (nombre.length == 0) { //Se quita la igualdad estricta
+    errorNombre(); //Se construye una funcion que nos valide el if
   }
   if (edad < 18 || edad > 120) {
-    e.classList.add("error")
+    errorEdad();
+  }
+  function errorNombre() {
+    const nombre = document.getElementById('name');
+    nombre.classList.add('error');//Nos manda un mesaje de error si dejamos el nombre vacio
+    alert('Ingresa tu nombre por favor');
+  }
+  function errorEdad() {
+    const edad = document.getElementById('age');
+    edad.classList.add("error")//Nos manda un mesaje de error si la persona es menor de edad o se deja vacio
+    alert('Error, ingresa tu edad o si eres menor, no podras entrar');
   }
 
-if (nombre.length > 0 
-  && (edad > 18 
-    && edad < 120) ) {
-  agregarInvitado(nombre, edad, nacionalidad)
+  if (nombre.length > 0 && (edad > 18 && edad < 120)) {
+    agregarInvitado(nombre, edad, nacionalidad)
   }
-}
+}); //cierre de validaciones
 
-var botonBorrar = document.createElement("button")
-botonBorrar.textContent = "Eliminar invitado"
-botonBorrar.id = "boton-borrar"
-var corteLinea = document.createElement("br")
-document.body.appendChild(corteLinea)
-document.body.appendChild(botonBorrar);
-
-function agregarInvitado(nombre, edad, nacionalidad) {
+function agregarInvitado(nombre, edad, nacionalidad) { //Aqui es donde se jalaran los datos del formulario para agregarlos a la tarjeta
 
   if (nacionalidad === "ar") {
     nacionalidad = "Argentina"
@@ -52,46 +43,48 @@ function agregarInvitado(nombre, edad, nacionalidad) {
     nacionalidad = "Peruana"
   }
 
-var lista = document.getElementById("lista-de-invitados")
+  var lista = document.querySelector("h3")
+  var elementoLista = document.createElement("div")
 
-var elementoLista = document.createElement("div")
-elementoLista.classList.added("elemento-lista")
-lista.appendChild(elementoLista)
+  elementoLista.classList.add("elemento-lista")
+  lista.appendChild(elementoLista);
 
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = "Nombre: "
-inputNombre.value = nombre 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
+  var spanNombre = document.createElement("span")
+  var inputNombre = document.createElement("input")
+  var espacio = document.createElement("br")
 
-function crearElemento(descripcion, valor) {
-var spanNombre = document.createElement("span")
-var inputNombre = document.createElement("input")
-var espacio = document.createElement("br")
-spanNombre.textContent = descripcion + ": "
-inputNombre.value = valor 
-elementoLista.appendChild(spanNombre)
-elementoLista.appendChild(inputNombre)
-elementoLista.appendChild(espacio)
-}
+  elementoLista.appendChild(spanNombre)
+  elementoLista.appendChild(inputNombre)
+  elementoLista.appendChild(espacio)
 
-crearElemento("Nombre", nombre)
-crearElemento("Edad", edad)
-crearElemento("Nacionalidad", nacionalidad)
+  function crearElemento(descripcion, valor) {
 
+    var spanNombre = document.createElement("span")
+    var inputNombre = document.createElement("input")
+    var espacio = document.createElement("br")
+    spanNombre.textContent = descripcion + ": "
+    inputNombre.value = valor
+    elementoLista.appendChild(spanNombre)
+    elementoLista.appendChild(inputNombre)
+    elementoLista.appendChild(espacio)
+  }
 
-var botonBorrar = document.createElement("button")
-botonBorrar.textContent = "Eliminar invitado"
-botonBorrar.id = "boton-borrar"
-var corteLinea = document.createElement("br")
-elementoLista.appendChild(corteLinea)
-elementoLista.appendChild(botonBorrar);
+  crearElemento("Nombre", nombre)
+  crearElemento("Edad", edad)
+  crearElemento("Nacionalidad", nacionalidad)
 
- botonBorrar.onclick = function() {
-// this.parentNode.style.display = 'none';
-botonBorrar.parentNode.remove()
+  //! parece que todo bien con este boton 
+  var botonBorrar = document.createElement("button")
+  botonBorrar.textContent = "Eliminar invitado"
+  botonBorrar.id = "boton-borrar"
+  var corteLinea = document.createElement("br")
+  elementoLista.appendChild(corteLinea);
+  elementoLista.appendChild(botonBorrar);
+
+  botonBorrar.onclick = function () {
+    this.parentNode.style.display = 'none';
+    botonBorrar.parentNode.remove()
+
   }
 }
+// });

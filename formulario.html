@@ -12,7 +12,8 @@
   <h1>Bienvenidos a mi fiesta</h1>
   <h2>Por favor, confirmar asistencia:</h2>
 
-  <form class="formulario">
+  <form  id ="idDeFormulario" class="formulario"> 
+    <!-- agregamos un id -->
     Nombre <input type="text" name="name" id="name">
     <br />
     Edad <input type="number" name="age" id="age">
@@ -20,21 +21,21 @@
 
     Nacionalidad
     <select name="nationality" id="nationality">
-      <option value="ar">Argentina</option>
-      <option value="mx">Mexicana</option>
-      <option value="per">Peruana</option>
-      <option value="vnzl">Venezolana</option>
+      <option value="Argentina">Argentina</option>
+      <option value="Mexicana">Mexicana</option>
+      <option value="Peruana">Peruana</option>
+      <option value="Venezolana">Venezolana</option>
     </select>
     <br />
     <input type="submit">
   </form>
 
   <div>
-    <h2>Lista de invitados</h2>
+    <h3 class="listita">Lista de invitados</h3>
 
   </div>
 
-  <script src="../formulario.js"></script>
+  <script src="./formulario.js"></script>  <!-- conectamos el JS de forma correcta -->
 </body>
 
 </html>
